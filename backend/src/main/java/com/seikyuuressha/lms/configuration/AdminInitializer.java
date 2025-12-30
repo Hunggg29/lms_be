@@ -29,8 +29,12 @@ public class AdminInitializer implements CommandLineRunner {
             log.info("Admin user already exists, skipping initialization");
             return;
         }
+        Roles adminRole = roleRepository.findByRoleName("ADMIN").orElse(null);
 
-        Roles adminRole = roleRepository.findByRoleName("ADMIN").orElseThrow();
+        if (adminRole == null) {
+            log.warn("ADMIN role not found, skipping default admin user initialization");
+            return;
+        }
 
         Users admin = Users.builder()
                 .fullName("Do Hieu")
