@@ -102,7 +102,7 @@ public class SecurityConfig {
                                                                                                 +
                                                                                                 "img-src 'self' data: https:; "
                                                                                                 +
-                                                                                                "connect-src 'self' https://api.vnpay.vn https://lms-be-opel.onrender.com;"
+                                                                                                "connect-src 'self' https://api.vnpay.vn https://lms-be-opel.onrender.com https://*.s3.ap-southeast-1.amazonaws.com http://localhost:8080;"
                                                                                                 +
                                                                                                 "frame-src https://accounts.google.com")));
 
