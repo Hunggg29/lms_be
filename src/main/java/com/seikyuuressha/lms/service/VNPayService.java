@@ -60,7 +60,7 @@ public class VNPayService {
             // Sử dụng múi giờ chuẩn của Việt Nam
             Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
             SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
-
+            formatter.setTimeZone(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
             // Tạo vnp_CreateDate
             String vnpCreateDate = formatter.format(cld.getTime());
             vnpParams.put("vnp_CreateDate", vnpCreateDate);
