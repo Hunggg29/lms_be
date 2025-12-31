@@ -107,7 +107,7 @@ public class VNPayService {
 
             List<String> fieldNames = new ArrayList<>(params.keySet());
             Collections.sort(fieldNames);
-            
+
             StringBuilder hashData = new StringBuilder();
             for (String fieldName : fieldNames) {
                 String fieldValue = params.get(fieldName);
@@ -115,7 +115,8 @@ public class VNPayService {
                     if (hashData.length() > 0) {
                         hashData.append('&');
                     }
-                    hashData.append(fieldName).append('=').append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII));
+                    hashData.append(fieldName).append('=')
+                            .append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII));
                 }
             }
 
@@ -136,10 +137,6 @@ public class VNPayService {
         };
     }
 
-    p
-
- 
-
-
-    
-                
+    private String encodeValue(String value) {
+        return URLEncoder.encode(value, StandardCharsets.UTF_8);
+    }
