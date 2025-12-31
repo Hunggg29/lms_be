@@ -43,11 +43,12 @@ public class VNPayService {
     public String createPaymentUrl(Payment payment, Course course, String ipAddress) {
         try {
             Map<String, String> vnpParams = new HashMap<>();
-            
+
             vnpParams.put("vnp_Version", vnpVersion);
             vnpParams.put("vnp_Command", vnpCommand);
             vnpParams.put("vnp_TmnCode", vnpTmnCode);
-            vnpParams.put("vnp_Amount", String.valueOf(payment.getAmount().multiply(BigDecimal.valueOf(100)).longValue()));
+            vnpParams.put("vnp_Amount",
+                    String.valueOf(payment.getAmount().multiply(BigDecimal.valueOf(100)).longValue()));
             vnpParams.put("vnp_CurrCode", "VND");
             vnpParams.put("vnp_TxnRef", payment.getTransactionId());
             vnpParams.put("vnp_OrderInfo", "Thanh toan khoa hoc: " + course.getTitle());
@@ -57,7 +58,7 @@ public class VNPayService {
             vnpParams.put("vnp_IpAddr", ipAddress);
 
             // Sử dụng múi giờ chuẩn của Việt Nam
-            Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
+            Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT-7"));
             SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
 
             // Tạo vnp_CreateDate
@@ -71,10 +72,10 @@ public class VNPayService {
 
             List<String> fieldNames = new ArrayList<>(vnpParams.keySet());
             Collections.sort(fieldNames);
-            
+
             StringBuilder hashData = new StringBuilder();
             StringBuilder query = new StringBuilder();
-            
+
             for (String fieldName : fieldNames) {
                 String fieldValue = vnpParams.get(fieldName);
                 if (fieldValue != null && !fieldValue.isEmpty()) {
@@ -82,7 +83,8 @@ public class VNPayService {
                         hashData.append('&');
                         query.append('&');
                     }
-                    hashData.append(fieldName).append('=').append(URLEncoder.encode(fieldValue, StandardCharsets.UTF_8));
+                    hashData.append(fieldName).append('=')
+                            .append(URLEncoder.encode(fieldValue, StandardCharsets.UTF_8));
                     query.append(fieldName).append('=').append(URLEncoder.encode(fieldValue, StandardCharsets.UTF_8));
                 }
             }
@@ -101,8 +103,9 @@ public class VNPayService {
         try {
             String vnpSecureHash = params.get("vnp_SecureHash");
             params.remove("vnp_SecureHash");
-            params.remove("vnp_SecureHash
+            params.remove("vnp_SecureHashType");
 
+            List<String> fieldNames = new ArrayList<>(params.keySet());
             Collections.sort(fieldNames);
             
             StringBuilder hashData = new StringBuilder();
@@ -110,9 +113,8 @@ public class VNPayService {
                 String fieldValue = params.get(fieldName);
                 if (fieldValue != null && !fieldValue.isEmpty()) {
                     if (hashData.length() > 0) {
-                            
-                 
-
+                        hashData.append('&');
+                    }
                     hashData.append(fieldName).append('=').append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII));
                 }
             }
@@ -136,10 +138,7 @@ public class VNPayService {
 
     p
 
-
-
-
-}
+ 
 
 
     
