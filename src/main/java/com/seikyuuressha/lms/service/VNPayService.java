@@ -43,12 +43,11 @@ public class VNPayService {
     public String createPaymentUrl(Payment payment, Course course, String ipAddress) {
         try {
             Map<String, String> vnpParams = new HashMap<>();
-
+            
             vnpParams.put("vnp_Version", vnpVersion);
             vnpParams.put("vnp_Command", vnpCommand);
             vnpParams.put("vnp_TmnCode", vnpTmnCode);
-            vnpParams.put("vnp_Amount",
-                    String.valueOf(payment.getAmount().multiply(BigDecimal.valueOf(100)).longValue()));
+            vnpParams.put("vnp_Amount", String.valueOf(payment.getAmount().multiply(BigDecimal.valueOf(100)).longValue()));
             vnpParams.put("vnp_CurrCode", "VND");
             vnpParams.put("vnp_TxnRef", payment.getTransactionId());
             vnpParams.put("vnp_OrderInfo", "Thanh toan khoa hoc: " + course.getTitle());
@@ -72,10 +71,10 @@ public class VNPayService {
 
             List<String> fieldNames = new ArrayList<>(vnpParams.keySet());
             Collections.sort(fieldNames);
-
+            
             StringBuilder hashData = new StringBuilder();
             StringBuilder query = new StringBuilder();
-
+            
             for (String fieldName : fieldNames) {
                 String fieldValue = vnpParams.get(fieldName);
                 if (fieldValue != null && !fieldValue.isEmpty()) {
@@ -83,8 +82,7 @@ public class VNPayService {
                         hashData.append('&');
                         query.append('&');
                     }
-                    hashData.append(fieldName).append('=')
-                            .append(URLEncoder.encode(fieldValue, StandardCharsets.UTF_8));
+                    hashData.append(fieldName).append('=').append(URLEncoder.encode(fieldValue, StandardCharsets.UTF_8));
                     query.append(fieldName).append('=').append(URLEncoder.encode(fieldValue, StandardCharsets.UTF_8));
                 }
             }
@@ -107,7 +105,7 @@ public class VNPayService {
 
             List<String> fieldNames = new ArrayList<>(params.keySet());
             Collections.sort(fieldNames);
-
+            
             StringBuilder hashData = new StringBuilder();
             for (String fieldName : fieldNames) {
                 String fieldValue = params.get(fieldName);
@@ -115,8 +113,7 @@ public class VNPayService {
                     if (hashData.length() > 0) {
                         hashData.append('&');
                     }
-                    hashData.append(fieldName).append('=')
-                            .append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII));
+                    hashData.append(fieldName).append('=').append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII));
                 }
             }
 
@@ -140,4 +137,13 @@ public class VNPayService {
     private String encodeValue(String value) {
         return URLEncoder.encode(value, StandardCharsets.UTF_8);
     }
+
+    public String generateTransactionId() {
+        return "VNP" + OffsetDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")) 
+                + VNPayUtil.getRandomNumber(6);
+    }
 }
+
+
+    
+                
