@@ -50,7 +50,7 @@ public class VNPayService {
             vnpParams.put("vnp_Amount", String.valueOf(payment.getAmount().multiply(BigDecimal.valueOf(100)).longValue()));
             vnpParams.put("vnp_CurrCode", "VND");
             vnpParams.put("vnp_TxnRef", payment.getTransactionId());
-            vnpParams.put("vnp_OrderInfo", encodeValue("Thanh toan khoa hoc: " + course.getTitle()));
+            vnpParams.put("vnp_OrderInfo", "Thanh toan khoa hoc: " + course.getTitle());
             vnpParams.put("vnp_OrderType", "other");
             vnpParams.put("vnp_Locale", "vn");
             vnpParams.put("vnp_ReturnUrl", vnpReturnUrl);
@@ -78,8 +78,8 @@ public class VNPayService {
                         hashData.append('&');
                         query.append('&');
                     }
-                    hashData.append(fieldName).append('=').append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII));
-                    query.append(fieldName).append('=').append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII));
+                    hashData.append(fieldName).append('=').append(URLEncoder.encode(fieldValue, StandardCharsets.UTF_8));
+                    query.append(fieldName).append('=').append(URLEncoder.encode(fieldValue, StandardCharsets.UTF_8));
                 }
             }
 

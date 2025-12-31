@@ -94,12 +94,13 @@ public class SecurityConfig {
                                                 .contentSecurityPolicy(csp -> csp
                                                                 .policyDirectives(
                                                                                 "default-src 'self'; " +
-                                                                                                "script-src 'self' 'unsafe-inline' https://apis.google.com https://accounts.google.com https://sandbox.vnpayment.vn; " +
-                                                                                                "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
-                                                                                                "font-src 'self' https://fonts.gstatic.com; " +
-                                                                                                "img-src 'self' data: https:; " +
-                                                                                                "connect-src 'self' https://sandbox.vnpayment.vn https://api.vnpay.vn https://lms-be-opel.onrender.com https://*.s3.ap-southeast-1.amazonaws.com http://localhost:8080; " +
-                                                                                                "frame-src https://accounts.google.com https://sandbox.vnpayment.vn")));
+                                                                                "script-src 'self' 'unsafe-inline' https://apis.google.com https://accounts.google.com https://sandbox.vnpayment.vn; " +
+                                                                                "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
+                                                                                "font-src 'self' https://fonts.gstatic.com; " +
+                                                                                "img-src 'self' data: https: https://vnpay.vn; " +
+                                                                                "connect-src 'self' https://sandbox.vnpayment.vn https://api.vnpay.vn https://lms-be-opel.onrender.com https://*.s3.ap-southeast-1.amazonaws.com http://localhost:8080; " +
+                                                                                "frame-src https://accounts.google.com https://sandbox.vnpayment.vn" +
+                                                                                "form-action 'self' https://sandbox.vnpayment.vn")));
 
                 return http.build();
         }
