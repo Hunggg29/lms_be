@@ -56,11 +56,15 @@ public class VNPayService {
             vnpParams.put("vnp_ReturnUrl", vnpReturnUrl);
             vnpParams.put("vnp_IpAddr", ipAddress);
 
-            Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
+            // Sử dụng múi giờ chuẩn của Việt Nam
+            Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
             SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+
+            // Tạo vnp_CreateDate
             String vnpCreateDate = formatter.format(cld.getTime());
             vnpParams.put("vnp_CreateDate", vnpCreateDate);
 
+            // Tạo vnp_ExpireDate (Cộng thêm 15 phút)
             cld.add(Calendar.MINUTE, 15);
             String vnpExpireDate = formatter.format(cld.getTime());
             vnpParams.put("vnp_ExpireDate", vnpExpireDate);
@@ -97,9 +101,8 @@ public class VNPayService {
         try {
             String vnpSecureHash = params.get("vnp_SecureHash");
             params.remove("vnp_SecureHash");
-            params.remove("vnp_SecureHashType");
+            params.remove("vnp_SecureHash
 
-            List<String> fieldNames = new ArrayList<>(params.keySet());
             Collections.sort(fieldNames);
             
             StringBuilder hashData = new StringBuilder();
@@ -107,8 +110,9 @@ public class VNPayService {
                 String fieldValue = params.get(fieldName);
                 if (fieldValue != null && !fieldValue.isEmpty()) {
                     if (hashData.length() > 0) {
-                        hashData.append('&');
-                    }
+                            
+                 
+
                     hashData.append(fieldName).append('=').append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII));
                 }
             }
@@ -130,12 +134,13 @@ public class VNPayService {
         };
     }
 
-    private String encodeValue(String value) {
-        return URLEncoder.encode(value, StandardCharsets.UTF_8);
-    }
+    p
 
-    public String generateTransactionId() {
-        return "VNP" + OffsetDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")) 
-                + VNPayUtil.getRandomNumber(6);
-    }
+
+
+
 }
+
+
+    
+                
